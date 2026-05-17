@@ -23,7 +23,6 @@ late final AuthService auth;
 Future<void> main() async {
   await OTel.initialize(
     serviceName: 'command-it-demo',
-    endpoint: 'http://localhost:4317',
   );
   // Required so runAsync's future completes on error.
   // Even a no-op is fine.
