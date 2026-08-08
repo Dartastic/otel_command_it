@@ -1,6 +1,20 @@
 # Changelog
 
-## [0.1.0-beta.1-wip]
+## [0.2.0-wip]
+
+### Changed
+
+- Semantic conventions aligned with the current OTel registry: spans
+  carry the registry `error.type` key on failures; command-specific
+  keys (`command.name`, `command.system`, `command.result`) stay
+  package-local because no registry convention for UI commands exists
+  yet. No deprecated registry keys are emitted.
+- Dependency floors raised to `dartastic_opentelemetry ^1.1.0-beta.12` and
+  `dartastic_opentelemetry_api ^1.0.0-rc.1`. The previous floors declared
+  compatibility with API versions that predate the semconv enums this
+  package uses and could not actually resolve-and-compile.
+- `repository` URL corrected to the canonical `Dartastic` org casing so
+  pub.dev repository verification succeeds.
 
 ### Added
 
@@ -16,8 +30,9 @@
 - Local `CommandItSemantics` enum (implements `OTelSemantic`).
 - Zone-scoped suppression via `runWithoutCommandItInstrumentation()`
   / `Async()`.
-- Six `flutter_test` tests using the canonical
-  `_helpers/otel_test_harness.dart`.
+- Six `flutter_test` tests instrumenting real `Command`s and asserting
+  span shape via the SDK's `package:dartastic_opentelemetry/testing.dart`
+  surface (no network).
 
 ### Design notes
 

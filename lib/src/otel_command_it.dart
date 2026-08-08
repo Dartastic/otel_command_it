@@ -116,7 +116,7 @@ void _endFromResult(Span span, ci.CommandResult result) {
         ),
         if (err != null)
           OTel.attributeString(
-            ErrorResource.errorType.key,
+            ErrorAttributes.errorType.key,
             err.runtimeType.toString(),
           ),
       ]),
@@ -144,7 +144,7 @@ void _endError(Span span, Object error, StackTrace stackTrace) {
         'error',
       ),
       OTel.attributeString(
-        ErrorResource.errorType.key,
+        ErrorAttributes.errorType.key,
         error.runtimeType.toString(),
       ),
     ]),

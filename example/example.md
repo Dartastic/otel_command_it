@@ -1,7 +1,7 @@
 # otel_command_it example
 
 A login form whose submit button taps emit a span you can find in
-Jaeger / Tempo / etc.
+any OTLP-compatible tracing backend.
 
 ```dart
 // example/lib/main.dart

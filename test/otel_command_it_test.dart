@@ -3,10 +3,9 @@
 
 import 'package:command_it/command_it.dart';
 import 'package:dartastic_opentelemetry/dartastic_opentelemetry.dart';
+import 'package:dartastic_opentelemetry/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otel_command_it/otel_command_it.dart';
-
-import 'package:dartastic_opentelemetry/testing.dart';
 
 void main() {
   late TestHarness harness;
