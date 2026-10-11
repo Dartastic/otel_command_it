@@ -2,13 +2,13 @@
 // Copyright 2025, Mindful Software LLC, All rights reserved.
 
 import 'package:command_it/command_it.dart' as ci;
-import 'package:dartastic_opentelemetry/dartastic_opentelemetry.dart';
+import 'package:dartastic_opentelemetry_api/dartastic_opentelemetry_api.dart';
 
 import 'otel_command_it_suppression.dart';
 
 const _tracerName = 'otel_command_it';
 
-Tracer _tracer() => OTel.tracerProvider().getTracer(_tracerName);
+APITracer _tracer() => OTelAPI.tracerProvider().getTracer(_tracerName);
 
 /// Typed attribute keys for command_it spans.
 ///
@@ -94,28 +94,28 @@ extension OTelCommand<TParam, TResult> on ci.Command<TParam, TResult> {
   }
 }
 
-Span _openSpan(String name) {
+APISpan _openSpan(String name) {
   return _tracer().startSpan(
     'command_it $name',
     kind: SpanKind.client,
-    attributes: OTel.attributesFromMap(<String, Object>{
+    attributes: OTelAPI.attributesFromMap(<String, Object>{
       CommandItSemantics.commandName.key: name,
       CommandItSemantics.commandSystem.key: 'command_it',
     }),
   );
 }
 
-void _endFromResult(Span span, ci.CommandResult result) {
+void _endFromResult(APISpan span, ci.CommandResult result) {
   if (result.hasError) {
     final err = result.error;
     span.addAttributes(
-      OTel.attributes([
-        OTel.attributeString(
+      OTelAPI.attributes([
+        OTelAPI.attributeString(
           CommandItSemantics.commandResult.key,
           'error',
         ),
         if (err != null)
-          OTel.attributeString(
+          OTelAPI.attributeString(
             ErrorAttributes.errorType.key,
             err.runtimeType.toString(),
           ),
@@ -125,8 +125,8 @@ void _endFromResult(Span span, ci.CommandResult result) {
     span.setStatus(SpanStatusCode.Error, err?.toString() ?? 'command error');
   } else {
     span.addAttributes(
-      OTel.attributes([
-        OTel.attributeString(
+      OTelAPI.attributes([
+        OTelAPI.attributeString(
           CommandItSemantics.commandResult.key,
           'success',
         ),
@@ -136,14 +136,14 @@ void _endFromResult(Span span, ci.CommandResult result) {
   span.end();
 }
 
-void _endError(Span span, Object error, StackTrace stackTrace) {
+void _endError(APISpan span, Object error, StackTrace stackTrace) {
   span.addAttributes(
-    OTel.attributes([
-      OTel.attributeString(
+    OTelAPI.attributes([
+      OTelAPI.attributeString(
         CommandItSemantics.commandResult.key,
         'error',
       ),
-      OTel.attributeString(
+      OTelAPI.attributeString(
         ErrorAttributes.errorType.key,
         error.runtimeType.toString(),
       ),
