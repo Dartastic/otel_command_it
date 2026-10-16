@@ -115,7 +115,7 @@ and which ones throw.
 ```yaml
 dependencies:
   command_it: ^9.0.0
-  otel_command_it: ^0.3.0
+  otel_command_it: ^0.3.1
 ```
 
 If you're still on the legacy package, use
