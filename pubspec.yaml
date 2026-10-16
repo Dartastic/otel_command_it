@@ -1,8 +1,7 @@
 name: otel_command_it
 description: >-
-  OpenTelemetry instrumentation for package:command_it (Thomas Burkhart's
-  renamed flutter_command). Wraps each Command execution in a CLIENT-kind
-  span with duration and failures.
+  OpenTelemetry instrumentation for command_it by Dartastic.io. Adds standard
+  OpenTelemetry observability to applications that use command_it.
 version: 0.3.1-wip
 repository: https://github.com/dartastic/otel_command_it
 homepage: https://dartastic.io
